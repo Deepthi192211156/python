@@ -1,0 +1,23 @@
+
+
+def calculate(s):
+    stack, num, sign = [], 0, 1
+    for c in s + '+':
+        if c.isdigit():
+            num = num * 10 + int(c)
+        elif c in "+-":
+            stack.append(sign * num)
+            num, sign = 0, 1 if c == '+' else -1
+        elif c == '(':
+            stack.append(sign)
+            stack.append('(')
+            sign, num = 1, 0
+        elif c == ')':
+            stack.append(sign * num)
+            num = 0
+            while stack[-1] != '(':
+                num += stack.pop()
+            stack.pop()
+            num *= stack.pop()
+    return sum(stack)
+print(calculate("1 + 1")) 
