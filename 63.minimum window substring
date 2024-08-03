@@ -1,0 +1,17 @@
+
+from collections import Counter
+def minWindow(s, t):
+    count_t, window = Counter(t), Counter()
+    l, r, min_len, start = 0, 0, float('inf'), 0
+    required, formed = len(count_t), 0
+    while r < len(s):
+        char = s[r]; window[char] += 1
+        if window[char] == count_t[char]: formed += 1
+        while l <= r and formed == required:
+            if r - l + 1 < min_len: min_len, start = r - l + 1, l
+            window[s[l]] -= 1
+            if window[s[l]] < count_t[s[l]]: formed -= 1
+            l += 1
+        r += 1
+    return "" if min_len == float('inf') else s[start:start + min_len]
+print(minWindow("ADOBECODEBANC", "ABC")) 
