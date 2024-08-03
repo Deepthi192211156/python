@@ -1,0 +1,6 @@
+
+import re
+def isValidNumber(s: str) -> bool:
+    pattern = r'^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$'
+    return bool(re.match(pattern, s.strip()))
+print(isValidNumber("0")) 
